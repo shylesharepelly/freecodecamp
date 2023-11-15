@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <%- include('navbar.ejs',{loggedin:true}) %>
+    <div style="width:600px;height:600px;margin-top: 10px;margin-left: auto;margin-right: auto;padding-top: 50px;">
+        <h1 class="py-2 text-2xl font-bold">Welcome to freeCodecamp.org</h1>
+        <h1 class="py-3 text-xl">"I have not failed. I have just found 10,000 ways that won't work"  </h1>
+        <h1 class="text-right"> --Thomas A. Edison</h1>
+        
+        <% for(let i=0; i< data.length;i++) { %>
+            <div class="border border-black bg-gray-300 text-center  text-xl">
+                <h1 class="px-2 py-2"><%= data[i].title %> ( <%= data[i].duration %> )</h1>
+            </div>
+        <% } %>
+    </div>
+
+</body>
+</html>

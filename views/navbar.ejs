@@ -1,0 +1,21 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://kit.fontawesome.com/9de405eb76.js" crossorigin="anonymous"></script>
+
+<nav class="py-2 bg-gray-700 flex justify-between">
+    <div class="px-4">
+        <input type="text" name="search" placeholder="Search 8,000+ tutorials" class="px-2 py-2 bg-gray-500">
+    </div>
+    <div class="flex py-1">
+        <h1 class=" text-2xl text-white font-bold">freeCodeCamp</h1>
+        <i class="fa-brands fa-free-code-camp fa-2xl py-4" style="color: #fcfcfc;"></i>
+    </div>
+    <div class="mr-2">
+        <button class="px-1 py-1 border-2 border-black  text-white font-bold"  onclick="window.location.href='/';">Menu</button>
+        <% if( loggedin ){ %>
+            <button class="px-1 py-1 border-2 border-black text-black bg-yellow-500 font-bold" onclick="window.location.href='/signout';">signout</button>     
+        <% } else { %>
+            <button class="px-1 py-1 border-2 border-black text-black bg-yellow-500 font-bold" onclick="window.location.href='/login';">Sign In</button>
+
+        <% } %>
+    </div>
+</nav>
