@@ -24,8 +24,10 @@ app.use(flash());
 app.use(
   session({
     secret: "my-secret-super-key-21728172615261562",
+    resave: false,
+    saveUninitialized: true,
     cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 1 * 60 * 60 *1000,
     },
   })
 );
@@ -131,14 +133,22 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.get("/", (req, res) => {
-  if (req.cookies.authToken) {
-    if (req.user) {
-      res.redirect("/dashboard");
-    }
-  } else {
-    res.render("home");
+  const authToken = req.cookies.authToken;
+
+  if (!authToken) {
+    return res.render("home");
+  }
+
+  try {
+    const decoded = jwt.verify(authToken, "my-secret-super-key-21728172615261562");
+    req.user = decoded;
+    return res.redirect("/dashboard");
+  } catch (error) {
+    console.error('Error verifying JWT:', error);
+    return res.render("home");
   }
 });
+
 
 app.get("/register", (req, res) => {
   res.render("register");
@@ -265,6 +275,7 @@ app.get("/dashboard", auth, (req, res) => {
         res.cookie("authToken", req.query.token, {
           maxAge: 24 * 60 * 60 * 1000,
           httpOnly: true,
+          secure: true
         });
         res.render("dashboard", {
           data: courses,
