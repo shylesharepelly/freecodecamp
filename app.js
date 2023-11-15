@@ -30,6 +30,9 @@ app.use(
   })
 );
 
+require('dotenv').config();
+
+
 const auth = require("./auth");
 
 app.use(function (request, response, next) {
@@ -40,7 +43,7 @@ app.use(function (request, response, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-const uri = "mongodb+srv://shylesh:shylesh@cluster0.bmgqnbn.mongodb.net/";
+const uri = process.env.MONGODB_URL;
 
 async function connect() {
   try {
@@ -90,10 +93,9 @@ passport.use(
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        "1034868921506-7tqb40s9cre7nm7bv3mhqoh45curmbga.apps.googleusercontent.com",
-      clientSecret: "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",
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      clientID:process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.CALLBACK_URL,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
