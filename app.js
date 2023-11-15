@@ -142,7 +142,8 @@ app.get("/", (req, res) => {
   try {
     const decoded = jwt.verify(authToken, "my-secret-super-key-21728172615261562");
     req.user = decoded;
-    return res.redirect("/dashboard");
+    // return res.redirect("/dashboard");
+    res.redirect("/dashboard?token=" + authToken);
   } catch (error) {
     console.error('Error verifying JWT:', error);
     return res.render("home");
